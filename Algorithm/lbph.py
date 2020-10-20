@@ -71,7 +71,7 @@ def _main():
     lbp_image = getLBPimage(image)
     img = Image.fromarray(lbp_image)
     img.show()
-    img.save('../Results/result.jpg')
+    img.save('../Results/jon_snow.jpg')
 
     if(args.y):
         vecImgLbp = lbp_image.flatten()
