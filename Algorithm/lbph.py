@@ -10,13 +10,13 @@ def getLBPimage(image):
     Output: LBP converted image of same shape
     '''
     #Convert the image into grayscale image
-    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    imgLBP = np.zeros_like(gray_image)
+    # gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    imgLBP = np.zeros_like(image)
     neighbor = 3
 
     for ih in range(0,image.shape[0] - neighbor):
         for iw in range(0,image.shape[1] - neighbor):
-            img = gray_image[ih:ih+neighbor,iw:iw+neighbor]
+            img = image[ih:ih+neighbor,iw:iw+neighbor]
             center = img[1,1]
             img01 = (img >= center) * 1.0
             img01_vector = img01.flatten()
@@ -43,7 +43,7 @@ def blockshaped(arr, nrows, ncols):
                         .swapaxes(1,2)
                         .reshape(-1, nrows, ncols))
 
-def histogram(imgArray, plot=False):
+def histogram(imgArray):
     '''
     Input: Image divided into grids
 
@@ -51,38 +51,34 @@ def histogram(imgArray, plot=False):
     '''
     hist, bin_edges = np.histogram(imgArray,density=True)
 
-    if plot:
-        plt.hist(hist,bins=bin_edges)
-        plt.show()
-
     return hist
 
 
-def _main():
+# def _main():
     
-    parser = argparse.ArgumentParser(description='Enter Image: ')
-    parser.add_argument('--image',type=str,help='Location of Image')
-    parser.add_argument('-y',action='store_true')
-    args = parser.parse_args()
+#     parser = argparse.ArgumentParser(description='Enter Image: ')
+#     parser.add_argument('--image',type=str,help='Location of Image')
+#     parser.add_argument('-y',action='store_true')
+#     args = parser.parse_args()
 
-    image = Image.open(args.image)
-    image = np.array(image)
+#     image = Image.open(args.image)
+#     image = np.array(image)
 
-    lbp_image = getLBPimage(image)
-    img = Image.fromarray(lbp_image)
-    img.show()
-    img.save('../Results/jon_snow.jpg')
+#     lbp_image = getLBPimage(image)
+#     img = Image.fromarray(lbp_image)
+#     img.show()
+#     img.save('../Results/jon_snow.jpg')
 
-    if(args.y):
-        vecImgLbp = lbp_image.flatten()
-        plt.hist(vecImgLbp,bins=2**8)
-        plt.show()
+#     if(args.y):
+#         vecImgLbp = lbp_image.flatten()
+#         plt.hist(vecImgLbp,bins=2**8)
+#         plt.show()
 
 
       
 
 
-_main()
+# _main()
 
 
 
